@@ -63,7 +63,6 @@ public void start(Stage primaryStage) {
         Button turnButton3 = new Button("Out_P");
         Button turnButton4 = new Button("Out_O");
 
-        // Создание сетки и настройка размещения элементов
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
         gridPane.setHgap(10);
@@ -94,9 +93,7 @@ public void start(Stage primaryStage) {
         }
 
 private void handleButtonAction(GameStats gameStat) {
-        // Обработка нажатия кнопки и выполнение действий
         System.out.println("Button clicked: " + gameStat.name());
-        // Здесь можно добавить код для записи в файл Excel или выполнения других операций
         }
 
 public static void main(String[] args) {
