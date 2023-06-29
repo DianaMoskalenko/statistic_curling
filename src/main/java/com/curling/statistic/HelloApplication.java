@@ -95,6 +95,7 @@ public void start(Stage primaryStage) {
 
 private void handleButtonAction(GameStats gameStat) {
         System.out.println("Button clicked: " + gameStat.name());
+        excelWriter.handleButtonAction(gameStat);
         }
 
 public static void main(String[] args) {

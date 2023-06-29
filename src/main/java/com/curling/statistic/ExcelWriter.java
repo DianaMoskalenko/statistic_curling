@@ -35,7 +35,7 @@ public class ExcelWriter {
             e.printStackTrace();
         }
     }
-    private void handleButtonAction(HelloApplication.GameStats gameStat) {
+    public void handleButtonAction(HelloApplication.GameStats gameStat) {
 
         System.out.println(gameStat.name());
 
