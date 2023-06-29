@@ -11,6 +11,10 @@ public class ExcelWriter {
     private Workbook workbook;
     private Sheet sheet;
     GameStats gameStats = new GameStats();
+    public static void main(String[] args) throws IOException {
+       FileOutputStream fos = new FileOutputStream("statistic.xlsx");
+
+    }
 
     public ExcelWriter(String filePath) {
         this.filePath = filePath;
@@ -35,7 +39,7 @@ public class ExcelWriter {
 
         System.out.println(gameStat.name());
 
-        ExcelWriter excelWriter = new ExcelWriter("/Users/Дяна/Desktop/js/statistic/src/main/java/com/curling/statistic/statistic.xlsx");
+        ExcelWriter excelWriter = new ExcelWriter("statistic.xlsx");
 
         excelWriter.writeData(gameStat.name());
 

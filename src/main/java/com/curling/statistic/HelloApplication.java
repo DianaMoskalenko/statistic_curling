@@ -23,6 +23,7 @@ import java.io.IOException;
 import static javafx.application.Application.launch;
 
 public class HelloApplication extends Application {
+    ExcelWriter excelWriter = new ExcelWriter("statistic.xlsx");
 
     enum GameStats {
     SCORE_ONE,
