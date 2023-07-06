@@ -12,8 +12,8 @@ public class ExcelWriter {
     private Sheet sheet;
     GameStats gameStats = new GameStats();
     public static void main(String[] args) throws IOException {
-       FileOutputStream fos = new FileOutputStream("statistic.xlsx");
-
+       ExcelWriter excelWriter = new ExcelWriter("statistic.xlsx");
+       excelWriter.handleButtonAction(HelloApplication.GameStats.POSITION_LEAD);
     }
 
     public ExcelWriter(String filePath) {
@@ -36,13 +36,7 @@ public class ExcelWriter {
         }
     }
     public void handleButtonAction(HelloApplication.GameStats gameStat) {
-
-        System.out.println(gameStat.name());
-
-        ExcelWriter excelWriter = new ExcelWriter("statistic.xlsx");
-
-        excelWriter.writeData(gameStat.name());
-
-        excelWriter.saveToFile();
+        this.writeData(gameStat.name());
+        this.saveToFile();
     }
 }
