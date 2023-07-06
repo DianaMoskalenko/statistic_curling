@@ -3,25 +3,46 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 public class ExcelWriter {
     private String filePath;
     private Workbook workbook;
     private Sheet sheet;
+    private int gameNumber;
+    private String gameDescription;
     GameStats gameStats = new GameStats();
-    public static void main(String[] args) throws IOException {
-       ExcelWriter excelWriter = new ExcelWriter("statistic.xlsx");
-       excelWriter.handleButtonAction(HelloApplication.GameStats.POSITION_LEAD);
-    }
+
 
     public ExcelWriter(String filePath) {
         this.filePath = filePath;
-        this.workbook = new XSSFWorkbook();
-        this.sheet = workbook.createSheet("Stats");
+        this.workbook = loadWorkbook();
+        this.sheet = getOrCreateSheet();
     }
-
+    private Workbook loadWorkbook() {
+        File file = new File(filePath);
+        Workbook workbook;
+        if (file.exists()) {
+            try (FileInputStream fileIn = new FileInputStream(file)) {
+                workbook = WorkbookFactory.create(fileIn);
+            } catch (IOException e) {
+                e.printStackTrace();
+                workbook = new XSSFWorkbook();
+            }
+        } else {
+            workbook = new XSSFWorkbook();
+        }
+        return workbook;
+    }
+    private Sheet getOrCreateSheet() {
+        Sheet sheet = workbook.getSheet("Stats");
+        if (sheet == null) {
+            sheet = workbook.createSheet("Stats");
+        }
+        return sheet;
+    }
     public void writeData(String buttonName) {
         Row row = sheet.createRow(sheet.getLastRowNum() + 1);
         Cell cell = row.createCell(0);
@@ -39,4 +60,6 @@ public class ExcelWriter {
         this.writeData(gameStat.name());
         this.saveToFile();
     }
+
+
 }
