@@ -4,5 +4,9 @@ public enum Score {
     ONE,
     TWO,
     THREE,
-    FOUR
+    FOUR;
+
+
+    public int getScore() {
+   return 0;}
 }

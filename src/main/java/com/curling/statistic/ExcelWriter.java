@@ -7,13 +7,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 public class ExcelWriter {
     private String filePath;
     private Workbook workbook;
     private Sheet sheet;
-    private int gameNumber;
-    private String gameDescription;
+
     GameStats gameStats = new GameStats();
+
 
 
     public ExcelWriter(String filePath) {
@@ -43,12 +44,40 @@ public class ExcelWriter {
         }
         return sheet;
     }
-    public void writeData(String buttonName) {
-        Row row = sheet.createRow(sheet.getLastRowNum() + 1);
-        Cell cell = row.createCell(0);
-        cell.setCellValue(buttonName);
+    public void writeData(String position) {
+        Row row = sheet.createRow(0);
+        Cell cell0 = row.createCell(0);
+        cell0.setCellValue("POSITION");
+        Row positionRow = sheet.createRow(NextRowNumber());
+
+        Cell cell = positionRow.createCell(0);
+        cell.setCellValue(position);
+
     }
 
+    private int NextRowNumber() {
+        if (sheet.getLastRowNum() == 0) {
+            return sheet.getFirstRowNum() - 1;
+        } else {
+            return sheet.getLastRowNum() + 1;
+        }
+    }
+
+
+    private String getPositionValue(HelloApplication.GameStats gameStat) {
+        switch (gameStat) {
+            case POSITION_LEAD:
+                return "Lead";
+            case POSITION_SECOND:
+                return "Second";
+            case POSITION_THIRD:
+                return "Third";
+            case POSITION_FOURTH:
+                return "Fourth";
+
+        }
+        return null;
+    }
     public void saveToFile() {
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
@@ -57,7 +86,8 @@ public class ExcelWriter {
         }
     }
     public void handleButtonAction(HelloApplication.GameStats gameStat) {
-        this.writeData(gameStat.name());
+        String position = getPositionValue(gameStat);
+        this.writeData(position);
         this.saveToFile();
     }
 
